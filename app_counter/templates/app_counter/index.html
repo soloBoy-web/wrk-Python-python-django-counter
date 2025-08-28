@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+
+{% block title %}Мир счётчиков | Главная{% endblock %}
+
+{% block body %}
+    <p>Добро пожаловать в мир счётчиков.</p>
+
+    {% if user.is_authenticated %}
+
+        <p>
+
+            <a href="{% url 'app_counter:counter' %}">Крутить свой счетчик</a>
+        </p>
+        <form action="{% url 'app_accounts:logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit"> Выйти </button>
+
+        </form>
+
+    {% else %}
+
+    <nav>
+        <a href="{% url 'app_accounts:login' %}">Войти в аккаунт</a>&nbsp;|
+        <a href="{% url 'app_accounts:register' %}">Зарегистрироваться</a>
+    </nav>
+
+    {% endif %}
+
+    <div>
+        {% if counters %}
+            {% for counter in counters %}
+                {% if counter.user %}
+                    <p>Пользователь <b>{{ counter.user }}</b> насчитал: {{ counter.value }}</p>
+                {% else %}
+                    <p>Исчезнувший пользователь насчитал: {{ counter.value }}</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>Нет ни одного счётчика.</p>
+        {% endif %}
+    </div>
+{% endblock %}

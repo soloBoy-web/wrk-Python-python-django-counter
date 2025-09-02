@@ -1,8 +1,20 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
-</head>
-<body>{% block body %}{% endblock %}</body>
-</html>
+
+{% extends 'django_bootstrap5/bootstrap5.html' %}
+{% load django_bootstrap5 %}
+
+
+
+
+
+
+{% block django_bootstrap5_title %} {% block title %} {% endblock %} {% endblock %}
+
+{% block bootstrap5_content %}
+
+    <div class="container">
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+        {% block body %}{% endblock %}
+
+    </div>
+
+{% endblock %}

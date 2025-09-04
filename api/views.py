@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 
 class HelloAPIView(APIView):
 
-    permissions_classes= (IsAuthenticated,)
+    permission_classes= (IsAuthenticated,)
     def get(self, request):
 
         content = {

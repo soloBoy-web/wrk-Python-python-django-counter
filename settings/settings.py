@@ -29,12 +29,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #cтороние ghbkj;
+    'rest_framework',
     'django_bootstrap5',
+
 
 
     # Свои приложения
     'app_counter',
     'app_accounts',
+    'api',
 ]
 
 MIDDLEWARE = [

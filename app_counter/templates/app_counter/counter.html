@@ -3,35 +3,58 @@
 
 {% block body %}
 
+{% if counters %}
+    <h2>Ваши счетчики:</h2>
 
-{% if counter %}
-    <p>Состояние счетчик: <b>{{ counter.value }}</b></p>
+    {% for counter in counters %}
+        <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+            <h3>{{ counter.name|default:"Без имени" }}</h3>
+            <p>Значение: <b>{{counter.value}}</b></p>
+
+            {% if counter.is_favorite %}
+                <p>⭐<b>Фаворит</b></p>
+            {% endif %}
+
+            <p>
+                <a href="{% url 'app_counter:decrease_counter' counter.id %}">Минус 1</a> |
+                <a href="{% url 'app_counter:increase_counter' counter.id %}">Плюс 1</a> |
+
+                {% if not counter.is_favorite %}
+                    <form action="{% url 'app_counter:set_favorite' counter.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit">Сделать фаворитом</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'app_counter:remove_favorite' %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit">Убрать фаворит</button>
+                    </form>
+                {% endif %}
+                |
+                <form action="{% url 'app_counter:delete_counter' counter.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить этот счетчик?')"
+                            style="color: red; background: none; border: none; cursor: pointer; text-decoration: underline;">
+                        Удалить
+                    </button>
+                </form>
+            </p>
+        </div>
+    {% endfor %}
+
+    <hr>
     <p>
-        <a href="{% url 'app_counter:decrease_counter' %}"> Минус 1 </a>
-        <a href="{% url 'app_counter:increase_counter' %}"> Плюс 1 </a>
-
-
+        <a href="{% url 'app_counter:create_counter' %}">Создать новый счетчик</a> |
+        <a href="{% url 'app_counter:index' %}">На главную</a>
     </p>
-
-     <p>
-        <a href="{% url 'app_counter:index' %}"> На главную </a>
-     </p>
-
-        <hr>
-
 
 {% else %}
-    <p> Нет счётчиков </p>
+    <p>У вас нет счетчиков</p>
     <hr>
     <p>
-
-        <a href="{% url 'app_counter:create_counter' %}"> Создать </a>
-
-    <hr>
-
+        <a href="{% url 'app_counter:create_counter' %}">Создать первый счетчик</a>
     </p>
+    <hr>
 {% endif %}
-
-
 
 {% endblock %}

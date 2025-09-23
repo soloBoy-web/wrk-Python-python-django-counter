@@ -1,5 +1,12 @@
-{% extends "_base.html" %}
 
+{% extends "_base.html" %}
+{% load static %}
+
+{% block head %}
+
+<script src="{% static 'app_counter/js/counter.js' %}"></script>
+
+{% endblock %}
 
 {% block body %}
 

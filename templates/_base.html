@@ -1,8 +1,11 @@
 
 {% extends 'django_bootstrap5/bootstrap5.html' %}
 {% load django_bootstrap5 %}
+{% load static %}
 
 
+<script src="{% static 'app_counter/js/counter.js' %}"></script>
+{% block bootstrap5_extra_head %}{% block head %}{% endblock %}{% endblock %}
 
 
 

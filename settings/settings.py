@@ -2,7 +2,7 @@ from builtins import FileNotFoundError
 from pathlib import Path
 from decouple import Config, RepositoryEnv, Csv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 DOTENV_FILEPATH = BASE_DIR.parent / '.env'
 
@@ -83,12 +83,19 @@ REST_FRAMEWORK = {
 
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+       'NAME': 'django',
+       'USER': 'django_admin',
+        'PASSWORD': 'password',
+       'HOST': 'localhost',
+        'PORT': '5432',
+   }
 }
+
 
 
 # Password validation
@@ -114,8 +121,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
@@ -123,20 +128,17 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoprojecct.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
 
 STATIC_ROOT = BASE_DIR / "static",
 
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# django-bootstrap5 settings
+
 
 BOOTSTRAP5 = {
     "error_css_class": "django-bootstrap5-error",
